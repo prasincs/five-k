@@ -16,7 +16,6 @@
   (component/system-map
    :driver (new-executor-driver (executor))))
 
-
 (defn webserver-system
   []
   (component/system-map
@@ -59,7 +58,7 @@
                  ["scheduler" "docker"] (scheduler-system master state sched/docker-task-info)
                  ["scheduler" "ha"] (ha-scheduler-system master state sched/jar-task-info)
                  ["executor" nil] (executor-system)
-                 ["example-webserver" nil] (scheduler-system master state sched/example-webserver-task-info))]
+                 ["example-webserver" nil] (webserver-system))]
     (component/start system)
     (while true
       (Thread/sleep 1000000))))
