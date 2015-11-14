@@ -10,6 +10,7 @@
                  [edpaget/clj-mesos "0.22.1-SNAPSHOT"]
                  [http-kit "2.1.19"]
                  [liberator "0.13"]
+                 [consul-clojure "0.1.0"]
                  [org.clojure/clojure "1.6.0"]
                  [org.clojure/tools.logging "0.2.6"]
                  [ring/ring-json "0.4.0"]
