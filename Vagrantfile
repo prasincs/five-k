@@ -4,11 +4,11 @@
 vagrant_slaves = ENV.fetch('MESOS_SLAVES', 2).to_i
 
 Vagrant.configure(2) do |config|
-  config.vm.box = "edpaget/mesos"
+  config.vm.box = "prasincs/mesos"
   config.vm.box_check_update = true
 
   config.vm.provider "virtualbox" do |vb|
-    vb.memory = "2048"
+    vb.memory = "1024"
   end
 
   config.vm.define "master" do |master|
