@@ -7,7 +7,7 @@
                  [com.stuartsierra/component "0.2.3"]
                  [compojure "1.4.0"]
                  [curator "0.0.6"]
-                 [edpaget/clj-mesos "0.22.1-SNAPSHOT"]
+                 [prasincs/clj-mesos "0.25.0-SNAPSHOT"]
                  [http-kit "2.1.19"]
                  [liberator "0.13"]
                  [consul-clojure "0.1.0"]

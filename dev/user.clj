@@ -26,28 +26,7 @@
   (apply repl/refresh opts))
 
 
-(comment
-  (def zookeeper-servers "zookeeper-000-staging.mistsys.net:2181,zookeeper-001-staging.mistsys.net:2181,zookeeper-002-staging.mistsys.net:2181")
-  (def zookeeper-servers "zookeeper-000-production.mistsys.net:2181,zookeeper-001-production.mistsys.net:2181,zookeeper-002-production.mistsys.net:2181")
-  (def client (curator-framework zookeeper-servers))
-  (.start client)
-  (.close client)
-  )
-
-
-(defn get-children
-  [path]
-  (vec (.forPath (.getChildren client) path)))
-
-(defn count-children [path]
-  (let [children (get-children path)]
-    (if (zero? (count children))
-      0
-      (+ (count children)
-         (apply + (map #(count-children (str path (if (= path "/") ""
-                                                      "/") %)) children))))))
-
-(def configuration (atom {:master "zk://10.10.4.2:2181/mesos"
+(def configuration (atom {:master "zk://localhost:2181/mesos"
                           :exhibitor {:hosts []
                                       :port 2181
                                       :backup "zk://localhost:2181"}

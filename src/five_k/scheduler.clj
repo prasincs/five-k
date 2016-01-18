@@ -39,8 +39,20 @@
                 :mem min-mem}
     :executor {:executor-id "five-k-webserver"
                :command {:shell true
+                         :extract true
                          :value "java -jar /vagrant/target/uberjar/five-k-0.1.0-SNAPSHOT-standalone.jar -m five-k.system example-webserver" }}}])
 
+
+
+(defn secor-task-info
+  [uuid {:keys [slave-id]}]
+  [{:name "secor-worker"
+    :task-id uuid
+    :slave-id slave-id
+    :resources {:cpus min-cpu
+                :mem min-mem}
+    :executor {:executor-id "secor-instance"
+               :command {:uri "dist/secor-0.12-SNAPSHOT-bin.tar.gz"}}}])
 
 (defn resources?
   [{:keys [cpus mem]}]
@@ -58,8 +70,9 @@
    (registered [driver framework-id master]
                (update-state! zk-state :framework-id (constantly framework-id)))
    (reregistered [driver master]
-                 ;; (println "[reregistered]"
+                 ;;(println "[reregistered]"
                  )
+
    (error [driver message]
           ;; (println "[error]" message)
           (update-state! zk-state :framework-id (constantly nil)))
