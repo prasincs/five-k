@@ -26,10 +26,10 @@
   (apply repl/refresh opts))
 
 
-(def configuration (atom {:master "zk://localhost:2181/mesos"
+(def configuration (atom {:master "zk://zookeeper-000-staging.mistsys.net:2181,zookeeper-001-staging.mistsys.net:2181,zookeeper-002-staging.mistsys.net:2181/mesos"
                           :exhibitor {:hosts []
                                       :port 2181
-                                      :backup "zk://localhost:2181"}
+                                      :backup "zk://zookeeper-000-staging.mistsys.net:2181"}
                           :state {:tasks 1}
                           :task-launcher sched/jar-task-info
                           :zk-path "/hm"}))
@@ -123,6 +123,7 @@
     (condp = task-type
       nil (do (lein uberjar) sched/jar-task-info)
       :jar (do (lein uberjar) sched/jar-task-info)
+      :secor (do (lein uberjar) sched/secor-task-info)
       :example-server (do (lein uberjar) sched/example-webserver-task-info)
       :docker  sched/docker-task-info)
     task-type))
