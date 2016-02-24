@@ -4,8 +4,8 @@
             [five-k.zookeeper-state :refer [update-state!]])
   (:import [org.apache.curator.utils ZKPaths]))
 
-(def min-cpu 0.5)
-(def min-mem 128.0)
+(def min-cpu 1)
+(def min-mem 512.0)
 
 (defn jar-task-info
   [uuid {:keys [slave-id]}]
@@ -52,7 +52,8 @@
     :resources {:cpus min-cpu
                 :mem min-mem}
     :executor {:executor-id "secor-instance"
-               :command {:uri "dist/secor-0.12-SNAPSHOT-bin.tar.gz"}}}])
+               :command {:uri "https://oss.sonatype.org/service/local/repositories/releases/content/com/pinterest/secor/0.15/secor-0.15-bin.tar.gz"
+                         :extract true}}}])
 
 (defn resources?
   [{:keys [cpus mem]}]

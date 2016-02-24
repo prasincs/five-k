@@ -6,6 +6,7 @@
             [five-k.component.scheduler-driver :refer [new-scheduler-driver]]
             [five-k.component.scheduler :refer [new-scheduler]]
             [five-k.example-webserver :as web]
+            [five-k.secor-manager :as secor]
             [five-k.executor :refer [executor]]
             [five-k.scheduler :refer [scheduler] :as sched]
             [five-k.zookeeper-state :refer [new-zookeeper-state]])
@@ -20,6 +21,12 @@
   []
   (component/system-map
    :driver (new-executor-driver (web/executor))))
+
+
+(comment (defn secor-system
+   []
+   (component/system-map
+    :driver (new-executor-driver (secor/executor)))))
 
 (defn scheduler-system
   [master initial-state exhibitor task-launcher zk-path]
@@ -57,7 +64,10 @@
                  ["scheduler" "jar"] (scheduler-system master state sched/jar-task-info)
                  ["scheduler" "docker"] (scheduler-system master state sched/docker-task-info)
                  ["scheduler" "ha"] (ha-scheduler-system master state sched/jar-task-info)
+                 ;; avoid HA for the time being
+                 ["scheduler" "secor"] (scheduler-system master state sched/secor-task-info)
                  ["executor" nil] (executor-system)
+                 ["executor" "secor"] (secor-system)
                  ["example-webserver" nil] (webserver-system))]
     (component/start system)
     (while true
