@@ -1,4 +1,5 @@
 # Five-k
+[left as a demo project. I've moved to using Go instead and this is just for reference]
 Because Marathon is too much distance
 
 
